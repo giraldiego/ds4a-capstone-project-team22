@@ -8,14 +8,21 @@ navbar_simple = dbc.NavbarSimple([
     style={"margin": "auto !important"},
     brand="DS4A",
     color="#000000",
+    brand_href="/",
     fluid=True,
     dark=True,
 )
 
 navbar = dbc.Row([
-    navbar_simple,
-   html.Div(
-        dbc.Button("Dashboards",className="btn btn-light mt-2", style={"float": "right"}),
-        style={ "position": "absolute"}
+    dbc.Col(
+        navbar_simple,
+        className="col-md-11",
     ),
-])
+    dbc.Col(
+        dbc.NavLink("Dashboards",className="btn btn-light mt-2", style={"float": "right"}, href="/selection"),
+        className="col-md-1",
+        style={"background-color":"#000000"},
+    ),
+    
+],
+style={"background-color":"#000000"})
