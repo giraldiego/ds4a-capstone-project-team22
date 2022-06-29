@@ -1,6 +1,6 @@
 #libraries
+from dash import Dash, html, dcc
 import dash
-import dash_labs as dl
 import dash_bootstrap_components as dbc
 from components import nav,main
 
@@ -18,24 +18,29 @@ external_stylesheets = [
 
 
 
-
+print(dash.__version__)
 # Dash instance declaration
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+app = Dash(__name__, external_stylesheets=external_stylesheets, use_pages=True)
 #title app
 app.title = "Informal economy"
 #favicon app
 app._favicon = ("favicon.jpg")
 
 #Main layout
-app.layout = dbc.Container(
-    [
-        nav.navbar,
-        main.body_main,
+# app.layout = dbc.Container(
+#     [
+#         nav.navbar,
+#         main.body_main,
         
-    ],
-    className="dbc",
-    fluid=True,
-)
+#     ],
+#     className="dbc",
+#     fluid=True,
+# )
+
+
+app.layout = html.Div([
+	dash.page_container
+])
 
 # This call will be used with Gunicorn server
 server = app.server
