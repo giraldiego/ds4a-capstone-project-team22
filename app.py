@@ -6,7 +6,7 @@ from components import nav,main
 
 #declared external css to use
 external_stylesheets = [
-    dbc.themes.BOOTSTRAP, 
+    dbc.themes.BOOTSTRAP,
     "assets/styles.css",
     {
         'href': 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css',
@@ -22,7 +22,7 @@ print(dash.__version__)
 # Dash instance declaration
 app = Dash(__name__, external_stylesheets=external_stylesheets, use_pages=True)
 #title app
-app.title = "Informal economy"
+app.title = "Informal Economy"
 #favicon app
 app._favicon = ("favicon.jpg")
 
@@ -31,7 +31,7 @@ app._favicon = ("favicon.jpg")
 #     [
 #         nav.navbar,
 #         main.body_main,
-        
+
 #     ],
 #     className="dbc",
 #     fluid=True,
@@ -47,4 +47,5 @@ server = app.server
 
 # Testing server, don't use in production, host
 if __name__ == "__main__":
-    app.run_server(debug=True)
+    # app.run_server(debug=True)
+    app.run_server(host='0.0.0.0', port=7050, debug=True)
