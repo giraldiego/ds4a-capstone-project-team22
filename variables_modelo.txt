@@ -1,0 +1,181 @@
+variables
+
+'Celular','Energira_elect', 'Alcantarillado
+Edad, y Numero Personas en Hogar
+
+P6210
+¿Cuál es el nivel educativo más alto alcanzado por .... y el último año o grado aprobado en este nivel?
+a. Ninguno 
+b.Preescolar
+c. Básica primaria (1o - 5o)
+d.Básica secundaria (6o - 9o)
+e. Media (10o -13o)
+f. Superior o universitaria
+g. No sabe, no informa
+
+P6020 
+Sexo 
+1 Hombre 
+2 Mujer
+
+P6070
+Actualmente:
+a. No esta casado(a) y vive en pareja hace menos de dos años
+b. No esta casado (a) y vive en pareja hace dos años o más 
+c. Esta casado (a) 
+d. Esta separado (a) o divorciado (a) 
+e. Esta viudo(a) 
+f. Esta soltero (a)
+
+P6160
+¿sabe leer y escribir?
+1 Sí
+2 No
+
+
+P6170 
+¿actualmente ... Asiste a la escuela, colegio o universidad?
+1 Sí 
+2 No
+
+P5090 
+La vivienda ocupada por este hogar es:
+a. Propia,totalmente pagada
+b. Propia, la están pagando 
+c. En arriendo o subarriendo
+d. En usufructo 
+e. Posesión sin titulo (Ocupante de hecho) ó propiedad colectiva
+f. Otra
+
+P5210S1 
+¿Cuáles de los siguientes servicios o bienes en uso, posee este hogar?
+a. Servicio de teléfono fijo
+1 Sí 
+2 No
+
+P5210S2 
+Servicio de televisión por subscripción cable o antena parabólica
+13. ¿Cuáles de los siguientes servicios o bienes en uso, posee este hogar?
+b. Servicio de televisión por suscripción cable o antena parabólica 
+1 Sí
+2 No
+
+P5210S3 
+Servicio de internet 
+13. ¿Cuáles de los siguientes servicios o bienes en uso, posee este hogar? 
+c. Servicio de Internet 
+1 Sí
+2 No
+P5210S4
+Máquina lavadora de ropa
+13. ¿Cuáles de los siguientes servicios o bienes en uso, posee este hogar? 
+d. Máquina lavadora de ropa
+1 Sí
+2 No
+
+P5210S5
+Nevera o refrigerador
+13. ¿Cuáles de los siguientes servicios o bienes en uso, posee este hogar?
+e. Nevera o refrigerador
+1 Sí
+2 No
+
+P5210S6 
+Licuadora
+13. ¿Cuáles de los siguientes servicios o bienes en uso, posee este hogar?
+f. Licuadora
+1 Sí
+2 No
+
+P5210S7 
+Estufa eléctrica o de gas
+13. ¿Cuáles de los siguientes servicios o bienes en uso, posee este hogar?
+g. Estufa eléctrica o de gas
+1 Sí
+2 No
+
+P5210S11
+Televisor a color 
+13. ¿Cuáles de los siguientes servicios o bienes en uso, posee este hogar?
+k. Televisor a color
+1 Sí
+2 No
+
+P5210S14 
+Dvd 
+13. ¿Cuáles de los siguientes servicios o bienes en uso, posee este hogar?
+l. DVD
+1 Sí 
+2 No
+
+P5210S15 
+Equipo de sonido 
+13. ¿Cuáles de los siguientes servicios o bienes en uso, posee este hogar? 
+m. Equipo de sonido 
+1 Sí
+2 No
+
+P5210S16 
+Computador (para uso del hogar)
+13. ¿Cuáles de los siguientes servicios o bienes en uso, posee este hogar?
+n. Computador para uso del hogar
+1 Sí 
+2 No
+
+P5210S19
+Ventilador o abanico
+13. ¿Cuáles de los siguientes servicios o bienes en uso, posee este hogar?
+q. Ventilador o abanico
+1 Sí 
+2 No
+
+P5210S20 
+Bicicleta 
+13. ¿Cuáles de los siguientes servicios o bienes en uso, posee este hogar? 
+r. Bicicleta
+1 Sí 
+2 No
+
+P5210S21 
+Motocicleta
+13. ¿Cuáles de los siguientes servicios o bienes en uso, posee este hogar?
+s. Motocicleta
+1 Sí 
+2 No
+
+P5210S22 
+Carro particular
+13. ¿Cuáles de los siguientes servicios o bienes en uso, posee este hogar? 
+t. Carro particular
+1 Sí
+2 No
+
+P5220 
+¿en este hogar algún o algunos de sus miembro(s) tiene teléfono celular?
+14. ¿ En este hogar algún o algunos de sus miembros tiene teléfono celular propio?
+1 Sí 
+2 No
+
+
+P4030S1 
+Energía eléctrica
+4. ¿Con cuáles de los siguientes servicios cuenta la vivienda?
+a. Energía eléctrica 
+1 Sí 
+2 No
+
+
+P4030S3
+Alcantarillado
+4. ¿Con cuáles de los siguientes servicios cuenta la vivienda?
+c. Alcantarillado
+1 Sí 
+2 No
+
+P6040
+¿cuántos años cumplidos
+tiene...? (si es menor de 1 año, escriba 00)
+
+
+P6008 
+Total de personas en el hogar:
