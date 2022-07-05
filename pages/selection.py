@@ -35,7 +35,7 @@ layout = dbc.Container(
                             dbc.CardBody(
                                 [
                                     html.H4("Predictive dashboard", className="card-title"),
-                                    dbc.Button("Go", color="primary", href="/predictive"),
+                                    dbc.Button("Go", color="primary", href="/analysis"),
                                 ],
                             ),
                         ],

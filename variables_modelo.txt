@@ -1,8 +1,3 @@
-variables
-
-'Celular','Energira_elect', 'Alcantarillado
-Edad, y Numero Personas en Hogar
-
 P6210
 ¿Cuál es el nivel educativo más alto alcanzado por .... y el último año o grado aprobado en este nivel?
 a. Ninguno 
@@ -94,6 +89,20 @@ g. Estufa eléctrica o de gas
 1 Sí
 2 No
 
+P5210S9 
+Horno microondas
+13. ¿Cuáles de los siguientes servicios o bienes en uso, posee este hogar?
+i. Horno microondas
+1 Sí
+2 No
+
+P5210S10
+Calentador de agua eléctrico o de gas o ducha eléctrica
+13. ¿Cuáles de los siguientes servicios o bienes en uso, posee este hogar?
+j. Calentador de agua eléctrico o de gas o ducha eléctrica
+1 Sí
+2 No
+
 P5210S11
 Televisor a color 
 13. ¿Cuáles de los siguientes servicios o bienes en uso, posee este hogar?
@@ -119,6 +128,13 @@ P5210S16
 Computador (para uso del hogar)
 13. ¿Cuáles de los siguientes servicios o bienes en uso, posee este hogar?
 n. Computador para uso del hogar
+1 Sí 
+2 No
+
+P5210S18
+Aire acondicionado
+13. ¿Cuáles de los siguientes servicios o bienes en uso, posee este hogar?
+p. Aire acondicionado 
 1 Sí 
 2 No
 
@@ -150,27 +166,67 @@ t. Carro particular
 1 Sí
 2 No
 
+P5210S17
+Aspiradora / brilladora
+13. ¿Cuáles de los siguientes servicios o bienes en uso, posee este hogar?
+o. Aspiradora / brilladora 
+1 Sí
+2 No
+
 P5220 
 ¿en este hogar algún o algunos de sus miembro(s) tiene teléfono celular?
 14. ¿ En este hogar algún o algunos de sus miembros tiene teléfono celular propio?
 1 Sí 
 2 No
 
+P4020
+¿cuál es el material predominante de los pisos de la vivienda?
+3. ¿Cuál es el material predominante de los pisos de la vivienda?
+a. Tierra, arena 
+b. Cemento,gravilla
+c. Madera burda, tabla, tablón, otro vegetal
+d. Baldosín, ladrillo, vinisol, otros materiales sintéticos
+e. Mármol
+f. Madera pulida
+g. Alfombra o tapete de pared a pared
+
+
+
+
 
 P4030S1 
 Energía eléctrica
-4. ¿Con cuáles de los siguientes servicios cuenta la vivienda?
+14. ¿Con cuáles de los siguientes servicios cuenta la vivienda?
 a. Energía eléctrica 
 1 Sí 
 2 No
 
+P4030S2
+Gas natural conectado a red pública
+4. ¿Con cuáles de los siguientes servicios cuenta la vivienda? 
+b. Gas natural conectado a red pública 
+1 Sí 
+2 No
 
 P4030S3
 Alcantarillado
-4. ¿Con cuáles de los siguientes servicios cuenta la vivienda?
+14. ¿Con cuáles de los siguientes servicios cuenta la vivienda?
 c. Alcantarillado
 1 Sí 
 2 No
+
+P4030S1A1
+Estrato para tarifa
+4a. Estrato para tarifa
+1 Bajo - Bajo 
+2 Bajo 
+3 Medio- Bajo 
+4 Medio 
+5 Medio - Alto 
+6 Alto 
+9 No sabe o cuenta con planta eléctrica
+0 Conexión Pirata
+
 
 P6040
 ¿cuántos años cumplidos
