@@ -15,11 +15,11 @@ layout = dbc.Container(
 
                     dbc.Card(
                         [
-                            dbc.CardImg(src="assets/descriptive.jpg", top=True, style={"width": "100%", "height":"100%"}),
+                            dbc.CardImg(src="assets/powerbi.png", top=True, style={"width": "100%", "height":"100%"}),
                             dbc.CardBody(
                                 [
-                                    html.H4("Descriptive dashboard", className="card-title"),
-                                    dbc.Button("Go", color="primary", href="/descriptive"),
+                                    html.H4("tablero analisis descriptivo", className="card-title"),
+                                    dbc.Button("Ir", color="primary", href="/descriptive"),
                                 ],
                             
                             ),
@@ -31,11 +31,11 @@ layout = dbc.Container(
 
                     dbc.Card(
                         [
-                            dbc.CardImg(src="assets/predictive.jpg", top=True, style={"width": "100%", "height":"100%"}),
+                            dbc.CardImg(src="assets/form.png", top=True, style={"width": "100%", "height":"100%"}),
                             dbc.CardBody(
                                 [
-                                    html.H4("Predictive dashboard", className="card-title"),
-                                    dbc.Button("Go", color="primary", href="/analysis"),
+                                    html.H4("formulario informalidad", className="card-title"),
+                                    dbc.Button("Ir", color="primary", href="/analysis"),
                                 ],
                             ),
                         ],
