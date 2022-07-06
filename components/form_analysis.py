@@ -887,9 +887,9 @@ la_vivienda_es,
         )
         respuesta = ejecutamodelo(df)
         if respuesta == 1:
-            modal_header = "formal"
-        else:
             modal_header = "informal"
+        else:
+            modal_header = "formal"
 
         modal_body = "Con base en nuestro modelo, analizando tus respuestas eres de la población" + modal_header
         return not is_open, modal_header,modal_body   
