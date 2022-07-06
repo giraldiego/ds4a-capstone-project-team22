@@ -1,6 +1,9 @@
 import dash_bootstrap_components as dbc
-from dash import dcc, html, Input, Output, callback
-
+from dash import dcc, html, Input, Output, callback,State
+import re
+import pandas as pd
+import pickle
+import xgboost
 
 mayor_nivel_educativo = html.Div(
     [
@@ -57,28 +60,29 @@ estado_civil = html.Div(
                 {"label": "Esta soltero (a)", "value": 6},
             ],
         ),
+        html.Div(id="output-estado_civil", className="text-danger")
     ],
     className="mb-3",
 )
 
-sabe_leer_escribir = dbc.Row(
-    [
-        dbc.Label("¿Sabe leer y escribir?",
-        html_for="sabe_leer_escribir",
-        class_name="text-white"),
-        dbc.Col(
-            dbc.RadioItems(
-                id="sabe_leer_escribir",
-                options=[
-                    {"label": "Sí", "value": 1},
-                    {"label": "No", "value": 2},
-                ],
-            ),
-            class_name="text-white"
-        ),
-    ],
-    className="mb-3",
-) 
+# sabe_leer_escribir = dbc.Row(
+#     [
+#         dbc.Label("¿Sabe leer y escribir?",
+#         html_for="sabe_leer_escribir",
+#         class_name="text-white"),
+#         dbc.Col(
+#             dbc.RadioItems(
+#                 id="sabe_leer_escribir",
+#                 options=[
+#                     {"label": "Sí", "value": 1},
+#                     {"label": "No", "value": 2},
+#                 ],
+#             ),
+#             class_name="text-white"
+#         ),
+#     ],
+#     className="mb-3",
+# ) 
 
 estudia_escuela_universidad = dbc.Row(
     [
@@ -324,7 +328,7 @@ dvd = html.Div(
     [
         dbc.Label("dvd",  className="text-white col-7"),
         dbc.RadioItems(
-            id="radios",
+            id="dvd",
             className="btn-group text-white",
             inputClassName="btn-check",
             labelClassName="btn btn-outline-primary",
@@ -335,7 +339,6 @@ dvd = html.Div(
             ],
             value=1,
         ),
-        html.Div(id="output"),
     ],
     className="radio-group",
 )
@@ -480,26 +483,6 @@ carro = html.Div(
     className="radio-group",
 )
 
-nevera = html.Div(
-    [
-        dbc.Label("Nevera o refrigerador",  className="text-white col-7"),
-        dbc.RadioItems(
-            id="nevera",
-            className="btn-group text-white",
-            inputClassName="btn-check",
-            labelClassName="btn btn-outline-primary",
-            labelCheckedClassName="active",
-            options=[
-                {"label": "Sí", "value": 1},
-                {"label": "No", "value": 2},
-            ],
-            value=1,
-        ),
-        html.Div(id="output"),
-    ],
-    className="radio-group",
-)
-
 aspiradora = html.Div(
     [
         dbc.Label("Aspiradora / brilladora",  className="text-white col-7"),
@@ -540,7 +523,6 @@ servicio_bienes_uso = html.Div([
     bicicleta,
     motocicleta,
     carro,
-    nevera,
     aspiradora
 ],
 # style={"border": "1px solid white", "padding":"20px 20px 20px 20px"}
@@ -654,14 +636,15 @@ servicios_vivienda = html.Div([
     alcantarillado,
 ])
 
-anos = html.Div(
+edad = html.Div(
     [
-        dbc.Label("¿Cuántos años cumplidos tiene?", html_for="anos", class_name="text-white"),
-        dbc.Input(type="text", id="anos", placeholder="Por favor digite su edad"),
+        dbc.Label("¿Cuántos años cumplidos tiene?", html_for="edad", class_name="text-white"),
+        dbc.Input(type="text", id="edad", placeholder="Por favor digite su edad"),
         dbc.FormText(
             "¿cuántos años cumplidos tiene...? (si es menor de 1 año, escriba 00)",
             color="secondary",
         ),
+        html.Div(id="output-edad", className="text-danger")
     ],
     className="mb-3",
 )
@@ -674,6 +657,7 @@ personas = html.Div(
             "Total de personas en el hogar",
             color="secondary",
         ),
+        html.Div(id="output-personas", className="text-danger")
     ],
     className="mb-3",
 )
@@ -701,17 +685,36 @@ estrato  = html.Div(
 )
 
 submit = html.Div(
-    dbc.Button("Predict ->",type="submit", color="primary", size="lg"),
+    dbc.Button("Predict ->",type="submit", color="primary", size="lg",id="open", n_clicks=0),
     className="d-grid gap-2 d-md-flex justify-content-md-end",
 )
+
+modal = html.Div(
+    [
+        dbc.Modal(
+            [
+                dbc.ModalHeader(dbc.ModalTitle("Header"), id="modal-header"),
+                dbc.ModalBody("This is the content of the modal" , id="modal-body"),
+                dbc.ModalFooter(
+                    dbc.Button(
+                        "Close", id="close", className="ms-auto", n_clicks=0
+                    )
+                ),
+            ],
+            id="modal",
+            is_open=False,
+        ),
+    ]
+)
+
 form_variables = dbc.FormFloating([
 html.H1("Analisis de informalidad", className="text-white"),
 html.P("Por favor diligencie el formulario para conocer la probabilidad de que usted se encuentre en el rango de informalidad analizado con base en el modelo diseñado",  className="text-white"),
-anos,
+edad,
 sexo, 
 estado_civil,
 estrato,
-sabe_leer_escribir,
+# sabe_leer_escribir,
 personas,
 estudia_escuela_universidad,
 mayor_nivel_educativo,
@@ -721,10 +724,173 @@ telefono,
 servicio_bienes_uso,
 servicios_vivienda,
 submit,
+modal
 ], 
 style={"max-width": "40vw", "margin": "auto"})
 
+# Functions
 
-@callback(Output("output", "children"), [Input("radios", "value")])
-def display_value(value):
-    return f"Selected value: {value}"
+def check_number(data):
+    if data == "":
+        return ""
+    result = re.match(r'^([\s\d]+)$', str(data))
+    if not result and data != None:
+        return "Por favor digite solo numeros"
+
+
+def loadmodel():
+# load the model from disk
+    filename = './assets/script/modelXGBoost_Informal.sav'
+    loaded_model = pickle.load(open(filename, 'rb'))
+    return loaded_model
+
+def Datos(Sexo, Edad, Estado_civil, Asiste_Escuela_Universidad, Mayor_nivel_educativo, Tipo_Vivienda , Vivienda_Propiedad,
+         No_Personas_Hogar, Tel_fijo, TV_cable, Internet, Lavadora, Nevera, Microondas, Calentador_agua, Equipo_sonido, Computador,
+         Aspiradora, Aire_Acondicionado, Ventilador, Motocicleta, Carro, Celular, Estrato, Gas_natural, Materiales_Pisos):
+
+        names=['Sexo', 'Edad', 'Estado_civil', 'Asiste_Escuela_Universidad','Mayor_nivel_educativo', 'Tipo_Vivienda', 'Vivienda_Propiedad',
+        'No_Personas_Hogar', 'Tel_fijo', 'TV_cable', 'Internet', 'Lavadora', 'Nevera', 'Microondas', 'Calentador_agua', 'Equipo_sonido',
+        'Computador', 'Aspiradora', 'Aire_Acondicionado', 'Ventilador','Motocicleta', 'Carro', 'Celular', 'Estrato', 'Gas_natural',
+        'Materiales_Pisos']
+
+        respuestas=[Sexo, Edad, Estado_civil, Asiste_Escuela_Universidad, Mayor_nivel_educativo, Tipo_Vivienda , Vivienda_Propiedad,
+        No_Personas_Hogar, Tel_fijo, TV_cable, Internet, Lavadora, Nevera, Microondas, Calentador_agua, Equipo_sonido, Computador,
+        Aspiradora, Aire_Acondicionado, Ventilador, Motocicleta, Carro, Celular, Estrato, Gas_natural, Materiales_Pisos]
+                     
+        dict1=dict(zip(names,respuestas))
+        df_respuestas=pd.DataFrame(data=dict1,index=[0])
+
+        return df_respuestas
+
+def ejecutamodelo(Datos):
+
+    #Ejecuta modelo y devuelve 1==Informal, 0==Formal
+
+    respuesta=loadmodel().predict(Datos)
+    
+    return respuesta
+
+@callback(
+Output("output-edad","children"),
+Input("edad","value")
+)
+def number_1_callback(*args, **kwargs):
+    return check_number(*args, **kwargs)
+
+@callback(
+Output("output-personas","children"),
+Input("personas","value")
+)
+def number_2_callback(*args, **kwargs):
+    return check_number(*args, **kwargs)
+
+@callback(
+    Output("modal", "is_open"), Output("modal-header","children"), Output("modal-body","children"),
+    [Input("open", "n_clicks"), 
+    Input("close", "n_clicks")],
+    [State("modal", "is_open"),
+    State("mayor_nivel_educativo","value"),
+    State("sexo","value"),
+    State("estado_civil","value"),
+    State("estudia_escuela_universidad","value"),
+    State("la_vivienda_es","value"),
+    State("tel_fijo","value"),
+    State("tv_cable","value"),
+    State("internet","value"),
+    State("lavadora","value"),
+    State("nevera","value"),
+    State("licuadora","value"),
+    State("estufa","value"),
+    State("microondas","value"),
+    State("calentador","value"),
+    State("televisor","value"),
+    State("dvd","value"),
+    State("sonido","value"),
+    State("computador","value"),
+    State("acondicionado","value"),
+    State("ventilador","value"),
+    State("bicicleta","value"),
+    State("motocicleta","value"),
+    State("carro","value"),
+    State("aspiradora","value"),
+    State("telefono","value"),
+    State("material_piso","value"),
+    State("electricidad","value"),
+    State("gas","value"),
+    State("alcantarillado","value"),
+    State("edad","value"),
+    State("personas","value"),
+    State("estrato","value"),
+    ],
+)
+def toggle_modal(n1, n2, is_open,
+mayor_nivel_educativo,
+sexo,
+estado_civil,
+estudia_escuela_universidad,
+la_vivienda_es,
+    tel_fijo,
+    tv_cable,
+    internet,
+    lavadora,
+    nevera,
+    licuadora,
+    estufa,
+    microondas,
+    calentador,
+    televisor,
+    dvd,
+    sonido,
+    computador,
+    acondicionado,
+    ventilador,
+    bicicleta,
+    motocicleta,
+    carro,
+    aspiradora,
+    telefono,
+    material_piso,
+    electricidad,
+    gas,
+    alcantarillado,
+    edad,
+    personas,
+    estrato,
+    ):
+    if n1 or n2:
+        df = Datos(sexo,
+        int(edad),
+        estado_civil,
+        estudia_escuela_universidad,
+        mayor_nivel_educativo,
+        la_vivienda_es,
+        la_vivienda_es,
+        int(personas),
+        tel_fijo,
+        tv_cable,
+        internet,
+        lavadora,
+        nevera,
+        microondas,
+        calentador,
+        sonido,
+        computador,
+        aspiradora,
+        acondicionado,
+        ventilador,
+        motocicleta,
+        carro,
+        telefono,
+        estrato,
+        gas,
+        material_piso,
+        )
+        respuesta = ejecutamodelo(df)
+        if respuesta == 1:
+            modal_header = "informal"
+        else:
+            modal_header = "formal"
+
+        modal_body = "Con base en nuestro modelo, analizando tus respuestas eres de la población" + modal_header
+        return not is_open, modal_header,modal_body   
+    return is_open, "", ""
