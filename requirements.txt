@@ -4,3 +4,4 @@ pandas
 dash-labs
 dash-bootstrap-components
 gunicorn
+xgboost
