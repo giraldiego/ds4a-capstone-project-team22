@@ -5,3 +5,4 @@ dash-labs
 dash-bootstrap-components
 gunicorn
 xgboost
+scikit-learn 
