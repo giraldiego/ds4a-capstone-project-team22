@@ -1,5 +1,7 @@
 # A view of Colombian Informal Workforce
 
+[Video Presentation](https://vimeo.com/728143693)
+
 ## Overview 
 
 The informal economy is one in which labor conditions do not follow a legal framework. Thus, it includes a series of productive activities where workers do not have rights such as vacations, compensation for working time, severance pay, among others. This kind of economy has a big role in emerging countries. It has been widely agreed that to measure its size is a challenge given unavailability of the data to describe and characterize the issue. Some efforts have been made to estimate the impact of informal economy in productivity or taxes revenue but it has been less explored its relationship with quality of life of those involved within. This phenomena entitles a social concern regarding the ability of societies to be resilient beyond measuring economic impact. 
